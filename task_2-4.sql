@@ -6,16 +6,11 @@ go
 use Alma_Mater
 go
 
-CREATE TABLE Courses(
-	id INT NOT NULL AUTO_INCREMENT,
-	course_title VARCHAR(200),
-	PRIMARY KEY(id)
-)
-go
+
 
 CREATE TABLE Groups(
 	id INT NOT NULL AUTO_INCREMENT,
-	name VARCHAR(200) NOT NULL,
+	group_name VARCHAR(200) NOT NULL,
 	PRIMARY KEY(id)
 )
 
@@ -37,13 +32,20 @@ CREATE TABLE Teachers(
 	first_name VARCHAR(200) NOT NULL,
 	last_name VARCHAR(200) NOT NULL,
 	email VARCHAR(200) NOT NULL,
-	course_id INT NOT NULL,
+	PRIMARY KEY(id)	
+)
+go 
+
+CREATE TABLE Courses(
+	id INT NOT NULL AUTO_INCREMENT,
+	course_title VARCHAR(200),
+	teacher_id INT NOT NULL,
 	PRIMARY KEY(id),
-	FOREIGN KEY(group_id) REFERENCES Courses(id)
+	FOREIGN KEY(teacher_id) REFERENCES Teachers(id)
 		ON DELETE CASCADE
 		ON UPDATE CASCADE
 )
-go 
+go
 
 CREATE TABLE Students_Courses(
 	id INT NOT NULL AUTO_INCREMENT,
@@ -68,3 +70,9 @@ CREATE TABLE Marks(
 		ON DELETE CASCADE
 		ON UPDATE CASCADE
 )
+
+--requests----------------------------------------------------------------
+
+SELECT first_name, last_name, group_name, mark
+	FROM Students, Groups, Courses, Students_Courses, Marks
+	WHERE 
