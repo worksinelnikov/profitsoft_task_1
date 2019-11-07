@@ -31,3 +31,40 @@ CREATE TABLE Students(
 		ON UPDATE CASCADE
 )
 go 
+
+CREATE TABLE Teachers(
+	id INT NOT NULL AUTO_INCREMENT,
+	first_name VARCHAR(200) NOT NULL,
+	last_name VARCHAR(200) NOT NULL,
+	email VARCHAR(200) NOT NULL,
+	course_id INT NOT NULL,
+	PRIMARY KEY(id),
+	FOREIGN KEY(group_id) REFERENCES Courses(id)
+		ON DELETE CASCADE
+		ON UPDATE CASCADE
+)
+go 
+
+CREATE TABLE Students_Courses(
+	id INT NOT NULL AUTO_INCREMENT,
+	student_id INT NOT NULL,
+	course_id INT NOT NULL,
+	PRIMARY KEY(id),
+	FOREIGN KEY(student_id) REFERENCES Students(id)
+		ON DELETE CASCADE
+		ON UPDATE CASCADE,
+	FOREIGN KEY(course_id) REFERENCES Courses(id)
+		ON DELETE CASCADE
+		ON UPDATE CASCADE
+)
+go
+
+CREATE TABLE Marks(
+	id INT NOT NULL AUTO_INCREMENT,
+	student_course_id INT NOT NULL,
+	mark INT NOT NULL CHECK (mark > 0 AND mark < 6),
+	PRIMARY KEY(id),
+	FOREIGN KEY(student_course_id) REFERENCES Students_Courses(id)
+		ON DELETE CASCADE
+		ON UPDATE CASCADE
+)
