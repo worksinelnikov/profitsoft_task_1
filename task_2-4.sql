@@ -73,7 +73,7 @@ SELECT CONCAT (T.first_name, T.last_name) AS 'Teacher', C.course_title AS 'Cours
 	INNER JOIN Marks AS M ON M.fk_mark_course_id = C.id
 	INNER JOIN Students AS S ON S.id = M.fk_mark_student_id
 	GROUP BY C.course_title
-	HAVING COUNT(S.last_name) > 2000;
+	HAVING COUNT(S.id) > 2000;
 /*---------------------------------------------------------------------------------------------------------------------
 --Написать запрос, который выведет список отличников,
 --сгруппированных по группам.	
